@@ -11,6 +11,8 @@ public class PlayerMove : MonoBehaviour
     public Animator anim;
     float moveSpeed = 5f;
 
+    public string playerPrefix;
+
     List<GameObject> bombs = new List<GameObject>();
     bool moving;
 
@@ -35,25 +37,10 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         moving = false;
-
-        playerInput = new Vector3(0, 0, 0);
-        if (Input.GetKey("up"))
-        {
-            playerInput.y += 1;
-        }
-        if (Input.GetKey("down"))
-        {
-            playerInput.y -= 1;
-        }
-        if (Input.GetKey("left"))
-        {
-            playerInput.x -= 1;
-
-        }
-        if (Input.GetKey("right"))
-        {
-            playerInput.x += 1;
-        }
+        float horizontal = Input.GetAxis("Horizontal-" + playerPrefix);
+        float vertical = Input.GetAxis("Vertical-" + playerPrefix);
+        playerInput = new Vector3(horizontal, vertical, 0);
+        
 
         if (playerInput.x > 0 || playerInput.x < 0 || playerInput.y > 0 || playerInput.y < 0)
         {
@@ -74,7 +61,7 @@ public class PlayerMove : MonoBehaviour
 
         anim.SetBool("isMoving", moving);
 
-        if (Input.GetKeyDown("space"))
+        if (Input.GetButtonDown("Bomb-" + playerPrefix))
         {
             for (int i = 0; i < bombs.Count; i++)
             {
@@ -87,15 +74,25 @@ public class PlayerMove : MonoBehaviour
                 Vector3 bombLocation = new Vector3();
                 bombLocation.x = Mathf.Round(transform.position.x);
                 bombLocation.y = Mathf.Round(transform.position.y);
-                //spawn bomb
-                GameObject bomb = Instantiate(BombPrefab, bombLocation, Quaternion.identity) as GameObject;
-                bomb.GetComponent<Bomb>().range = blastRange;
-                if (!remoteDetonate)
-                    bomb.GetComponent<Bomb>().DisableRemote();
-                bombs.Add(bomb);
+                //check if a bomb can go there
+                RaycastHit2D hit = Physics2D.CircleCast(bombLocation, 0.4f, new Vector3(0, 0, 1), 3);
+                if (hit.collider.tag == "Bomb")
+                {
+                    //bomb aleady there
+                    print("bomb already there");
+                }
+                else
+                {
+                    //spawn bomb
+                    GameObject bomb = Instantiate(BombPrefab, bombLocation, Quaternion.identity) as GameObject;
+                    bomb.GetComponent<Bomb>().range = blastRange;
+                    if (!remoteDetonate)
+                        bomb.GetComponent<Bomb>().DisableRemote();
+                    bombs.Add(bomb);
+                }
             }
         }
-        if (Input.GetKeyDown(KeyCode.RightControl) && remoteDetonate)
+        if (Input.GetButtonDown("Detonate-" + playerPrefix) && remoteDetonate)
         {
             foreach (GameObject bomb in bombs) {
                 bomb.SendMessage("Blast");
