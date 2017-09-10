@@ -24,7 +24,12 @@ public class WallSpawner : MonoBehaviour {
                 }
             }
         }
-        
+
+        //destroy spawn blockers to prevent flame collision errors
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Blocker")){
+            Destroy(obj);
+        }
+
     }
 	
 	// Update is called once per frame

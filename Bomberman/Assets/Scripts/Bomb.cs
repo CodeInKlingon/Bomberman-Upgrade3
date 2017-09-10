@@ -43,16 +43,16 @@ public class Bomb : MonoBehaviour {
         foreach (Vector3 dir in directions) {
             for (int i = 0; i < range; i++)
             {
-                RaycastHit2D hit = Physics2D.CircleCast(transform.position + (dir * (i+1)), 0.5f,new Vector3(0,0,1),3);
+                RaycastHit2D hit = Physics2D.CircleCast(transform.position + (dir * (i+1)), 0.45f,new Vector3(0,0,1), Mathf.Infinity, blastCollision);
                 if (hit.collider != null)
                 {
                     if (hit.collider.tag == "Destructable") {
                         hit.collider.SendMessage("Destroy");
-                    }if (hit.collider.tag == "Player")
+                    }if (hit.collider.tag == "FlameHit")
                     {
                         Vector3 pos = transform.position + (dir * (i + 1));
                         GameObject blastInstance = Instantiate(blast, pos, Quaternion.identity) as GameObject;
-
+                        print("blast hit player collider");
                         if (i == range - 1)
                         {
                             blastInstance.GetComponent<Blast>().setIsTip();

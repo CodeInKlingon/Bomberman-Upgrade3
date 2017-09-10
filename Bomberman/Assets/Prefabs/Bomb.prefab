@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 210480432533868418}
   - component: {fileID: 114938010774927304}
   - component: {fileID: 61459603199482302}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bomb
   m_TagString: Bomb
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ MonoBehaviour:
   range: 2
   blastCollision:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4353
   blast: {fileID: 1949897576921062, guid: 05a17993fb07dc2498c8d082e197a384, type: 2}
 --- !u!210 &210480432533868418
 SortingGroup:

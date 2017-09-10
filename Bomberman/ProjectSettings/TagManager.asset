@@ -7,6 +7,8 @@ TagManager:
   - Wall
   - Destructable
   - Bomb
+  - Blocker
+  - FlameHit
   layers:
   - Default
   - TransparentFX

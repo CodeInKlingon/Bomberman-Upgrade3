@@ -25,12 +25,27 @@ public class PlayerMove : MonoBehaviour
     public bool punch = false;
 
     public GameObject BombPrefab;
+    public RuntimeAnimatorController[] bombermanController;
 
     // Use this for initialization
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        //anim = GetComponent<Animator>();
+
+        switch (playerPrefix) {
+            case "P2":
+                anim.runtimeAnimatorController = bombermanController[1];
+                break;
+            case "P3":
+                anim.runtimeAnimatorController = bombermanController[2];
+                break;
+            case "P4":
+                anim.runtimeAnimatorController = bombermanController[3];
+                break;
+            default:
+                anim.runtimeAnimatorController = bombermanController[0];
+                break;
+        }
     }
 
     // Update is called once per frame
@@ -100,5 +115,12 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+
+    public void Kill() {
+
+        Destroy(gameObject);
+        //check other player count.
+
+    }
     
 }

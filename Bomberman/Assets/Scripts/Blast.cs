@@ -35,7 +35,8 @@ public class Blast : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player") {
+        if (other.tag == "FlameHit") {
+            other.transform.parent.GetComponent<PlayerMove>().Kill();
             // eliminate that player
             print("got you");
         }
