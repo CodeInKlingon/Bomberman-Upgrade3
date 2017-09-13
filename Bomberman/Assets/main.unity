@@ -1685,6 +1685,11 @@ Prefab:
       propertyPath: playerPrefix
       value: P2
       objectReference: {fileID: 0}
+    - target: {fileID: 114003574637961534, guid: bbdd77c0056ae234382ef3bf12c71976,
+        type: 2}
+      propertyPath: remoteDetonate
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bbdd77c0056ae234382ef3bf12c71976, type: 2}
   m_IsPrefabParent: 0
@@ -1778,6 +1783,21 @@ Prefab:
         type: 2}
       propertyPath: playerPrefix
       value: P1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114003574637961534, guid: bbdd77c0056ae234382ef3bf12c71976,
+        type: 2}
+      propertyPath: remoteDetonate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114003574637961534, guid: bbdd77c0056ae234382ef3bf12c71976,
+        type: 2}
+      propertyPath: punch
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114003574637961534, guid: bbdd77c0056ae234382ef3bf12c71976,
+        type: 2}
+      propertyPath: kick
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bbdd77c0056ae234382ef3bf12c71976, type: 2}
@@ -3938,7 +3958,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4762435631986644, guid: fa910916b2b4755448508fe525031889, type: 2}
       propertyPath: m_RootOrder
-      value: 34
+      value: 33
       objectReference: {fileID: 0}
     - target: {fileID: 1963105988285382, guid: fa910916b2b4755448508fe525031889, type: 2}
       propertyPath: m_Name
@@ -4144,7 +4164,7 @@ Transform:
   m_LocalScale: {x: 1, y: 13, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 33
+  m_RootOrder: 34
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1836459069
 Prefab:
@@ -4344,7 +4364,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7.06
+  orthographic size: 11.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

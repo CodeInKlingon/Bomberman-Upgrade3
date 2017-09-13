@@ -15,7 +15,6 @@ public class item : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        print(other.tag);
         if (other.tag == "Player" && other.GetComponent<PowerUpManager>() !=null)
         {
             other.GetComponent<PowerUpManager>().AddPowerUp(effect);

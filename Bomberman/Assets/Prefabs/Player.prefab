@@ -177,6 +177,9 @@ MonoBehaviour:
   - {fileID: 9100000, guid: 3a757f249927b214d8524b93cd125635, type: 2}
   - {fileID: 9100000, guid: 0fd485adcb8b1144cb476efaa9ca7728, type: 2}
   - {fileID: 9100000, guid: 8999d20717dfa674590121f92180a63c, type: 2}
+  bombPlacementLayer:
+    serializedVersion: 2
+    m_Bits: 16384
 --- !u!114 &114415907873639314
 MonoBehaviour:
   m_ObjectHideFlags: 1

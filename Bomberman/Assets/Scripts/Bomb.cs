@@ -18,8 +18,13 @@ public class Bomb : MonoBehaviour {
 
     float blasthalfWidth = 0.4f;
 
-	// Use this for initialization
-	public void DisableRemote () {
+    public bool kicked = false;
+
+
+    public LayerMask bombLayerMask;
+
+    // Use this for initialization
+    public void DisableRemote () {
         bombTime = Time.time + 2;
         armed = true;
 	}
@@ -84,18 +89,41 @@ public class Bomb : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (Time.time - startTime > .2f)
+    public void Kick(Vector3 dir) {
+        kicked = true;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, dir.normalized,15,bombLayerMask);
+        Vector3 end = new Vector3(0, 0, 0);
+        if (hit.collider == null)
         {
-            if (collision.gameObject.tag == "Player")
-            {
-                print("is player");
-                if (collision.GetComponent<PlayerMove>().kick)
-                {
-                    print("has kick");
-                }
-            }
+            end = transform.position + (dir.normalized * 15);
         }
+        else
+        {
+            Vector3 point = hit.point;
+            point = point - (dir.normalized * 0.2f);
+            end.x = Mathf.Round(point.x);
+            end.y = Mathf.Round(point.y);
+
+            
+        }
+        StartCoroutine("MoveBomb", end);
+    }
+    public void StopKick() {
+        if (kicked) {
+            StopCoroutine("MoveBomb");
+            
+        }
+    }
+
+    IEnumerator MoveBomb(Vector3 destination) {
+        print(transform.position + ":" + destination);
+        float i = 0;
+        while (transform.position != destination) {
+            i += 0.1f * Time.deltaTime;
+            Vector3 lerp = Vector3.Lerp(transform.position, destination, i);
+            transform.position = lerp;
+            yield return null;
+        }
+        kicked = false;
     }
 }

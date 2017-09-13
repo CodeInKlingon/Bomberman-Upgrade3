@@ -27,6 +27,8 @@ public class PlayerMove : MonoBehaviour
     public GameObject BombPrefab;
     public RuntimeAnimatorController[] bombermanController;
 
+    public LayerMask bombPlacementLayer;
+
     // Use this for initialization
     void Start()
     {
@@ -90,11 +92,15 @@ public class PlayerMove : MonoBehaviour
                 bombLocation.x = Mathf.Round(transform.position.x);
                 bombLocation.y = Mathf.Round(transform.position.y);
                 //check if a bomb can go there
-                RaycastHit2D hit = Physics2D.CircleCast(bombLocation, 0.4f, new Vector3(0, 0, 1), 3);
-                if (hit.collider.tag == "Bomb")
+                RaycastHit2D hit = Physics2D.CircleCast(bombLocation, 0.4f, new Vector3(0, 0, 1),Mathf.Infinity,bombPlacementLayer);
+                //print(hit.collider.gameObject.layer.ToString());
+                if (hit.collider != null)
                 {
-                    //bomb aleady there
-                    print("bomb already there");
+                    if (hit.collider.tag == "Bomb")
+                    {
+                        //bomb aleady there
+                        print("bomb already there");
+                    }
                 }
                 else
                 {
@@ -113,6 +119,33 @@ public class PlayerMove : MonoBehaviour
                 bomb.SendMessage("Blast");
             }
         }
+
+        if (Input.GetButtonDown("Kick-" + playerPrefix) && kick)
+        {
+            Vector3 playerGridPosition = new Vector3();
+            playerGridPosition.x = Mathf.Round(transform.position.x);
+            playerGridPosition.y = Mathf.Round(transform.position.y);
+            RaycastHit2D hit = Physics2D.CircleCast(playerGridPosition, 0.4f, new Vector3(0, 0, 1), Mathf.Infinity, bombPlacementLayer);
+
+            if (hit.collider.tag == "Bomb")
+            {
+                print("Kick bomb");
+                hit.collider.GetComponent<Bomb>().Kick(lastInput);
+            }
+        }
+        if (Input.GetButtonDown("Punch-" + playerPrefix) && punch)
+        {
+            Vector3 playerGridPosition = new Vector3();
+            playerGridPosition.x = Mathf.Round(transform.position.x);
+            playerGridPosition.y = Mathf.Round(transform.position.y);
+            RaycastHit2D hit = Physics2D.CircleCast(playerGridPosition, 0.4f, new Vector3(0, 0, 1), Mathf.Infinity, bombPlacementLayer);
+
+            if (hit.collider.tag == "Bomb")
+            {
+                print("punch bomb");
+            }
+        }
+
     }
 
 
